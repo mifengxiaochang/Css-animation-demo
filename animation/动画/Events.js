@@ -14,51 +14,51 @@ import anStyles from './eventAnimation.less';
 
 
 class Events extends React.Component {
-  // componentWillReceiveProps(nextProps) {
-  //   const oldData = this.props.data;
-  //   const newData = nextProps.data;
-  //   if (oldData && newData && oldData.id !== newData.id) {
-  //     const active = document.getElementById('persionEvent').getElementsByTagName('li');
+  componentWillReceiveProps(nextProps) {
+    const oldData = this.props.data;
+    const newData = nextProps.data;
+    if (oldData && newData && oldData.id !== newData.id) {
+      const active = document.getElementById('persionEvent').getElementsByTagName('li');
 
-  //     for (let i = 0; i < active.length; i += 1) {
-  //       const index = i;
-  //       const theClass = anStyles[`leftIns${index}`];
-  //       const matchClass = new RegExp(theClass, 'gi');
-  //       const dom = active[i];
+      for (let i = 0; i < active.length; i += 1) {
+        const index = i;
+        const theClass = anStyles[`leftIns${index}`];
+        const matchClass = new RegExp(theClass, 'gi');
+        const dom = active[i];
 
-  //       if (matchClass.test(dom.className)) {
-  //         console.log(3);
-  //         removeClass(dom, theClass);
-  //         console.log('remove');
-  //         if (!hasClass(dom, anStyles.reverse)) {
-  //           dom.className += ` ${anStyles.reverse}`;
-  //         }
-  //         // active[i].className += `animation ${anStyles.reverse}`;
-  //         // active[i].addEventListener('webkitAnimationEnd', () => {
-  //         //   removeClass(dom, anStyles.topIn);
-  //         //   removeClass(dom, 'animation');
-  //         //   const theClass = anStyles[`leftIns${index}`];
-  //         //   dom.className += `animation ${theClass}`;
-  //         //   console.log(theClass);
-  //         // });
-  //       }
-  //       if (!/animation/gi.test(dom.className)) {
-  //         console.log(1);
-  //         // const index = i;
-  //         dom.className += ` animation  ${anStyles.topIn}`;
-  //         dom.addEventListener('webkitAnimationEnd', () => {
-  //           removeClass(dom, anStyles.topIn);
-  //           removeClass(dom, 'animation');
-  //           console.log(2);
-  //           if (!hasClass(dom, theClass)) {
-  //             dom.className += ` ${theClass}`;
-  //           }
-  //           this.props.data = nextProps.data;
-  //         });
-  //       }
-  //     }
-  //   }
-  // }
+        if (matchClass.test(dom.className)) {
+          console.log(3);
+          removeClass(dom, theClass);
+          console.log('remove');
+          if (!hasClass(dom, anStyles.reverse)) {
+            dom.className += ` ${anStyles.reverse}`;
+          }
+          // active[i].className += `animation ${anStyles.reverse}`;
+          // active[i].addEventListener('webkitAnimationEnd', () => {
+          //   removeClass(dom, anStyles.topIn);
+          //   removeClass(dom, 'animation');
+          //   const theClass = anStyles[`leftIns${index}`];
+          //   dom.className += `animation ${theClass}`;
+          //   console.log(theClass);
+          // });
+        }
+        if (!/animation/gi.test(dom.className)) {
+          console.log(1);
+          // const index = i;
+          dom.className += ` animation  ${anStyles.topIn}`;
+          dom.addEventListener('webkitAnimationEnd', () => {
+            removeClass(dom, anStyles.topIn);
+            removeClass(dom, 'animation');
+            console.log(2);
+            if (!hasClass(dom, theClass)) {
+              dom.className += ` ${theClass}`;
+            }
+            this.props.data = nextProps.data;
+          });
+        }
+      }
+    }
+  }
 
   componentDidUpdate() {
     // console.log(this.messageListRef.scrollTop); // 0
