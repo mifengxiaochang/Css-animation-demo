@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>Document</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #menuList{
+          position: relative;
+        }
+        #menuList li {
+        
+          border-bottom: 1px solid #ccc;
+          font-size: 24px;
+          padding: 20px 0;
+          text-align: center; 
+          background-color: #ccc;
+          width: 0;
+          margin-left: 3px;
+          display: flex;
+          align-items: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <ul id="menuList">
+        <li class="menu">全部</li>
+        <li class="menu">待支付</li>
+        <li class="menu">待确认</li>
+        <li class="menu">待入住</li>
+        <li class="menu">已入住</li>
+    </ul>
+    <svg width="500px" height="800px">
+      <path d="M250 250 A 50 50 0 0 1 250 150 L250 350 Z M250 250 A 50 50 0 0 0 250 150 z"
+      stroke="translate" fill="green" stroke-width="2" fill-opacity="0.5"
+      />
+    </svg>
+
+    <script type="text/javascript">
+      var move = document.getElementById("menuList").getElementsByTagName("li");
+      for(var i = 0; i < move.length; i ++){
+          move[i].onmouseover = function(){
+              var _this = this;
+              animate(_this, {width: 445},);
+
+          }
+      }
+        // function siblings(elem){ //参数elem就是想取谁的兄弟节点，就把那个元素传进去 
+        //     var nodes=[]; //定义一个数组，用来存elem的兄弟元素 
+        //     var previ=elem.previousSibling; 
+        //     while(previ){ //先取o的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 previ表示previousSibling 
+        //         if(previ.nodeType===1){ 
+        //             nodes.push(previ); 
+        //         } 
+        //         previ=previ.previousSibling; //最后把上一个节点赋给previ 
+        //     } 
+        //     nodes.reverse(); //把顺序反转一下 这样元素的顺序就是按先后的了 
+        //     var nexts=elem.nextSibling; //再取elem的弟弟 
+        //     while(nexts){ //判断有没有下一个弟弟结点 nexts是nextSibling的意思 
+        //         if(nexts.nodeType===1){ 
+        //             nodes.push(nexts); 
+        //         } 
+        //         nexts=nexts.nextSibling; 
+        //     } 
+        //     return nodes; //最后按从老大到老小的顺序，把这一组元素返回 
+        // } 
+        // var nowMenu = document.getElementsByClassName("menu"); //获取类名
+        // for(var i=0; i<nowMenu.length; i++){
+        //     nowMenu[i].index = i;  //设置下标值
+        //     nowMenu[i].onclick = function(){
+        //         var index = this.index;  //获取下标值
+        //         var nowIndex = nowMenu[index];  //确认当前点击的标签
+        //         for(var m=0; m<nowMenu.length-1; m++){
+        //             this.style.background = "#999";  //改变当前点击元素背景
+        //             siblings(nowIndex)[m].style.background = "#ccc";  //改变当前点击的兄弟元素背景
+        //         }
+        //     }
+        // }
+
+        function animate(obj, json, interval=1, sp=0.1, fn) {
+            clearInterval(obj.timer);
+            //var k = 0;
+            //var j = 0;
+            function getStyle(obj, arr) {
+                if(obj.currentStyle){
+                    return obj.currentStyle[arr];    //针对ie
+                } else {
+                    return document.defaultView.getComputedStyle(obj, null)[arr]; 
+                }
+            }
+            obj.timer = setInterval(function(){
+                //j ++;
+                var flag = true;
+                for(var arr in json) {
+                    var icur = 0;
+                    //k++;
+                    if(arr == "opacity") {
+                        icur = Math.round(parseFloat(getStyle(obj, arr))*100);
+                    } else {
+                        icur = parseInt(getStyle(obj, arr));
+                    }
+                    var speed = (json[arr] - icur) * sp;
+                    speed = speed > 0 ? Math.ceil(speed): Math.floor(speed);
+                    if(icur != json[arr]){
+                        flag = false;
+                    } 
+                    if(arr == "opacity"){
+                        obj.style.filter = "alpha(opacity : '+(icur + speed)+' )";
+                        obj.style.opacity = (icur + speed)/100;
+                    }else {
+                        obj.style[arr] = icur + speed + "px";
+                    }
+                    //console.log(j + "," + arr +":"+ flag);
+                }
+
+                if(flag){
+                    clearInterval(obj.timer);
+                    //console.log(j + ":" + flag);  
+                    //console.log("k = " + k);
+                    //console.log("j = " + j);
+                    //console.log("DONE");
+                    if(fn){
+                        fn();
+                    }
+                }
+            },interval);
+        }
+
+      
+    </script>
+</body>
+</html>

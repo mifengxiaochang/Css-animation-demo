@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style type="text/css">
+    /* *{ margin:0;padding:0; }
+    ul{ list-style:none; }
+    a{ font-size:16px;text-decoration:none;color:#666; }
+    div{ width:300px;margin:20px auto; }
+    #list li{ line-height:40px;height:40px;background:#efefef;text-indent:1em; margin-bottom:3px;overflow:hidden;-webkit-transition:height 0.3s ease;-moz-transition:height 0.3s ease-ms-transition:height 0.3s ease;-o-transition:height 0.3s ease;transition:height 0.3s ease;}
+    #list li img{ width:300px;height:200px;}
+    #list li:nth-child(1){height:240px;background:#F36;}
+    #list li:nth-child(1) a{ color:#fff; }
+    #list:hover li{ height:40px;background:#efefef; }
+    #list:hover li a{color:#666;}
+    #list li:hover{ height:240px; background:#F36;}
+    #list li:hover a{ color:#fff; } */
+</style>
+</head>
+<body>
+  <!-- <div>
+    <ul id="list">
+        <li >
+            <a href="">国际美妆抢先看</a>
+            <img src="images/1.jpg" />
+        </li>
+        <li>
+            <a href="">女神标准大讨论</a>
+            <img src="images/2.jpg" />
+        </li>
+        <li class="select">
+            <a href="">吃货也能越吃越瘦</a>
+            <img src="images/3.jpg" />
+        </li>
+        <li>
+            <a href="">连衣裙抢头条</a>
+            <img src="images/4.jpg" />
+        </li>
+        <li>
+            <a href="">宫三女主美妆对决</a>
+            <img src="images/5.jpg" />
+        </li>
+    </ul>
+</div> -->
+<script type="text/javascript">
+  var interval = null, index = 0;
+  window.onload = function ()
+  {
+      for ( var i = 0; i < 10; i++)
+      {
+          var div = document.createElement ('div');
+          div.style.position = 'absolute';
+          div.style.border = '1px solid black';
+          div.style.width = '100px';
+          div.style.height = '100px';
+          div.style.top = 110 * i + 'px';
+          div.style.display = 'none';
+          var txt = document.createTextNode(i + 1);
+          div.appendChild(txt);
+          document.body.appendChild (div);
+      }
+      var div = document.getElementsByTagName ('div');
+      var temp = !/.*chrome.*/i.test(navigator.userAgent) ? document.documentElement:document.body;
+      interval = setInterval (function ()
+      {
+          if (index == div.length)
+          {
+              clearInterval(interval);
+              interval = null;
+              return false;
+          }
+          div[index++].style.display = 'block';
+          temp.scrollTop += 110; 
+      }, 1000);
+  }
+</script>
+</body>
+</html>

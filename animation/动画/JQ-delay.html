@@ -1,0 +1,71 @@
+<!DOCTYPE html>  
+  <html>  
+      <head>  
+          <meta charset="utf-8" />  
+          <title>demo</title>  
+          <style>  
+              ul{  
+                  height:100px;  
+              }  
+              ul li{  
+                  display:none;  
+                  float:left;  
+                  height:100px;  
+                  width:200px;  
+                  margin-right:10px;  
+                  background:red;  
+                  list-style:none;  
+              }  
+          </style>  
+      </head>  
+      <body>  
+          <div>  
+              <ul class="liobj">  
+                  <li>哈哈</li>  
+                  <li>哈哈</li>  
+                  <li>哈哈</li>  
+                  <li>哈哈</li>  
+                  <li>哈哈</li>  
+                  <li>哈哈</li>  
+              </ul>  
+              <input type="button" class="next" value="前进">  
+              <input type="button" class="prev" value="返回">  
+          </div>  
+          <!--按钮区 -->  
+          <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>  
+          <script type="text/javascript">  
+              $(document).ready(function(){  
+                  ~(function(obj){  
+                    
+                      var Li = $(obj);  
+                        
+                      $(".next").click(function(){  
+                          if(!Li.is(":animated")){  
+                              var time = 1000;  
+                              for(var i = 0; i < Li.length; i++){  
+                                  Li.eq(i).delay(time);  
+                                  time += 500;  
+                                  Li.eq(i).fadeIn(2000);  
+                              }  
+                          }  
+                      });  
+                        
+                      $(".prev").click(function(){  
+                          if(!Li.is(":animated")){  
+                              var time = 1000;  
+                              for(var i = Li.length -1; i >= 0 ; i--){  
+                                  Li.eq(i).delay(time);  
+                                  time += 500;  
+                                  Li.eq(i).fadeOut(2000);  
+                              }  
+                          }  
+                        
+                      });  
+                        
+                  })(".liobj li");  
+                    
+              });  
+          </script>  
+      </body>  
+  </html>  
+ 
