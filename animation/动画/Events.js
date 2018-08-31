@@ -10,74 +10,63 @@ import defaultUserIconBig from 'assets/default-user-big.png';
 import defaultAvatarUrl from 'assets/default-user-event-icon.png';
 import ModuleBorder from 'components/ModuleBorder';
 import styles from './Events.less';
+import anStyles from './eventAnimation.less';
 
-function animate(dom, json, interval = 1, sp = 0.1, fn) {
-  const obj = dom;
-  clearInterval(obj.timer);
-  // var k = 0;
-  // var j = 0;
-  function getStyle(objs, arr) {
-    if (objs.currentStyle) {
-      return objs.currentStyle[arr]; // 针对ie
-    } else {
-      return document.defaultView.getComputedStyle(objs, null)[arr];
-    }
-  }
-  obj.timer = setInterval(() => {
-    // j ++;
-    let flag = true;
-    for (const arr in json) {
-      if (Object.prototype.hasOwnProperty.call(json, arr)) {
-        let icur = 0;
-        // k++;
-        if (arr === 'opacity') {
-          icur = Math.round(parseFloat(getStyle(obj, arr)) * 100);
-        } else {
-          icur = parseInt(getStyle(obj, arr), 10);
-        }
-        let speed = (json[arr] - icur) * sp;
-        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
-        if (icur !== json[arr]) {
-          flag = false;
-        }
-        if (arr === 'opacity') {
-          obj.style.filter = "alpha(opacity : '+(icur + speed)+' )";
-          obj.style.opacity = (icur + speed) / 100;
-        } else {
-          obj.style[arr] = `${icur + speed}px`;
-        }
-      }
-
-      // console.log(j + "," + arr +":"+ flag);
-    }
-
-    if (flag) {
-      clearInterval(obj.timer);
-      // console.log(j + ":" + flag);
-      // console.log("k = " + k);
-      // console.log("j = " + j);
-      // console.log("DONE");
-      if (fn) {
-        fn();
-      }
-    }
-  }, interval);
-}
 
 class Events extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    const oldData = this.props.data;
-    const newData = nextProps.data;
-    if (oldData && newData && oldData.id !== newData.id) {
-      const active = document.getElementById('persionEvent').getElementsByTagName('li');
-      for (let i = 0; i < active.length; i += 1) {
-        console.log(i);
-        console.log(active[i].offsetWidth);
-        animate(active[i], { left: `-${active[i].offsetWidth}` });
-      }
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   const oldData = this.props.data;
+  //   const newData = nextProps.data;
+  //   if (oldData && newData && oldData.id !== newData.id) {
+  //     const active = document.getElementById('persionEvent').getElementsByTagName('li');
 
+  //     for (let i = 0; i < active.length; i += 1) {
+  //       const index = i;
+  //       const theClass = anStyles[`leftIns${index}`];
+  //       const matchClass = new RegExp(theClass, 'gi');
+  //       const dom = active[i];
+
+  //       if (matchClass.test(dom.className)) {
+  //         console.log(3);
+  //         removeClass(dom, theClass);
+  //         console.log('remove');
+  //         if (!hasClass(dom, anStyles.reverse)) {
+  //           dom.className += ` ${anStyles.reverse}`;
+  //         }
+  //         // active[i].className += `animation ${anStyles.reverse}`;
+  //         // active[i].addEventListener('webkitAnimationEnd', () => {
+  //         //   removeClass(dom, anStyles.topIn);
+  //         //   removeClass(dom, 'animation');
+  //         //   const theClass = anStyles[`leftIns${index}`];
+  //         //   dom.className += `animation ${theClass}`;
+  //         //   console.log(theClass);
+  //         // });
+  //       }
+  //       if (!/animation/gi.test(dom.className)) {
+  //         console.log(1);
+  //         // const index = i;
+  //         dom.className += ` animation  ${anStyles.topIn}`;
+  //         dom.addEventListener('webkitAnimationEnd', () => {
+  //           removeClass(dom, anStyles.topIn);
+  //           removeClass(dom, 'animation');
+  //           console.log(2);
+  //           if (!hasClass(dom, theClass)) {
+  //             dom.className += ` ${theClass}`;
+  //           }
+  //           this.props.data = nextProps.data;
+  //         });
+  //       }
+  //     }
+  //   }
+  // }
+
+  componentDidUpdate() {
+    // console.log(this.messageListRef.scrollTop); // 0
+    // setTimeout(() => {
+    //   this.messageListRef.scrollTop = 100;
+    //   console.log(this.messageListRef.scrollTop); // 100
+    // }, 0);
+  }
   getPersonInfo = (v) => {
     const { data } = v;
     return (
@@ -109,7 +98,7 @@ class Events extends React.Component {
                 <div className={styles.birth}>
                   <div className={styles['birth-day']}>
                     <div>DATA DE NASCIMENTO</div>
-                    <div>{moment(data.birthday).format('L')}</div>
+                    <div>{moment(parseInt(data.birthday, 10)).format('L')}</div>
                   </div>
                   <div className={styles['birth-place']}>
                     <div>PROVINCIA DE</div>
@@ -119,11 +108,11 @@ class Events extends React.Component {
                 <div className={styles.date}>
                   <div className={styles['date-issue']}>
                     <div>EMITIDO EM</div>
-                    <div>{moment(data.certificationDate).format('L')}</div>
+                    <div>{moment(parseInt(data.certificationDate, 10)).format('L')}</div>
                   </div>
                   <div className={styles['date-valid']}>
                     <div>VÁLIDO ATÉ</div>
-                    <div>{moment(data.duration).format('L')}</div>
+                    <div>{moment(parseInt(data.duration, 10)).format('L')}</div>
                   </div>
                 </div>
               </div>
@@ -141,41 +130,39 @@ class Events extends React.Component {
     );
   }
   getPersonEvents = (v) => {
-    return (
-      <div className={styles.personEventsBox}>
-        <ul id="persionEvent" className={styles.personEvents}>
-          {map(v.data, (value, index) => {
-            return (
-              <li key={index}>
-                <div className={styles.space} />
-                <div className={styles.box}>
-                  <div className={styles.border}>
-                    <span />
+    const dom = map(v.data, (value, index) => {
+      const theClass = anStyles[`topIn${index}`];
+      const childNode = (
+        <li key={index} className={theClass}>
+          <div className={styles.space} />
+          <div className={styles.box}>
+            <div className={styles.border}>
+              <span />
+            </div>
+            <div className={styles.relation}>
+              <span>
+                {value.relation}
+              </span>
+            </div>
+            <div className={styles.relationInfo}>
+              <div className={styles.relationDetails}>
+                <div className={styles.relationImg}>
+                  <img src={value.otherAvatarUrl || defaultAvatarUrl} alt="" />
+                </div>
+                <div className={styles.particulars}>
+                  <div className={styles.relationName}>
+                    {value.otherName}
                   </div>
-                  <div className={styles.relation}>
-                    <span>
-                      {value.relation}
-                    </span>
-                  </div>
-                  <div className={styles.relationInfo}>
-                    <div className={styles.relationDetails}>
-                      <div className={styles.relationImg}>
-                        <img src={value.otherAvatarUrl || defaultAvatarUrl} alt="" />
+                  <div className={styles.IDCardAndAge}>
+                    <div className={styles.IdCard}>
+                      <div className={styles.IdCardTitle}>
+                            DI.N°
                       </div>
-                      <div className={styles.particulars}>
-                        <div className={styles.relationName}>
-                          {value.otherName}
-                        </div>
-                        <div className={styles.IDCardAndAge}>
-                          <div className={styles.IdCard}>
-                            <div className={styles.IdCardTitle}>
-                              DI.N°
-                            </div>
-                            <div className={styles.IdCardContent}>
-                              {value.personIdCard}
-                            </div>
-                          </div>
-                          {/* <div className={styles.Age}>
+                      <div className={styles.IdCardContent}>
+                        {value.personIdCard}
+                      </div>
+                    </div>
+                    {/* <div className={styles.Age}>
                             <div className={styles.AgeTitle}>
                               AIDADE
                             </div>
@@ -184,14 +171,18 @@ class Events extends React.Component {
                                 ('YYYY-MM-DD')), 'years')) + 1}
                             </div>
                           </div> */}
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
-              </li>
-            );
-          })}
+              </div>
+            </div>
+          </div>
+        </li>);
+      return childNode;
+    });
+    return (
+      <div className={styles.personEventsBox}>
+        <ul id="persionEvent" className={styles.personEvents}>
+          {dom}
         </ul>
       </div>
     );
