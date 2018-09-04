@@ -1,0 +1,133 @@
+.topIn {
+  animation-duration:1.1s;
+  animation-fill-mode:backwards;
+  //animation-delay: 1000ms;
+  // animation-timing-function: ease;
+  //border-left: 1px solid #fff; 
+}
+  .topIn0{
+    .topIn;
+    animation-name:topAn0;
+  }
+  .topIn1{
+    .topIn;
+    animation-name:topAn1;
+  }
+  .topIn2{
+    .topIn;
+    animation-name:topAn2;
+  }
+
+  .reverseConfig{
+    // animation-duration:1s;
+    // animation-fill-mode:forwards;
+    // //animation-timing-function: ease;
+    // animation-direction :reverse;
+    animation-duration:1s;
+    animation-fill-mode:forwards;
+  }
+
+  .reverse0{
+    .reverseConfig;
+    animation-name:revert0;
+    // animation-duration:1s;
+    // animation-fill-mode:forwards;
+    // //animation-timing-function: ease;
+    // animation-direction :reverse;
+  }
+  
+  .reverse1{
+    .reverseConfig;
+    animation-name:revert1;
+  }
+  .reverse2{
+    .reverseConfig;
+    animation-name:revert2;
+  }
+
+  @keyframes revert2 {
+    0%,3% { 
+      opacity: 1; 
+      width: 450px;
+      transform:translateY(0px);// translateY(-564px);
+    }
+    10%, 20% {
+      opacity: 1;
+      width: 0;
+      transform: translateY(0px);
+    }
+    22%, 100% {opacity: 0;transform:translateY(-564px);}
+  }
+
+  @keyframes revert1 {
+    0%,10% { 
+      opacity: 1; 
+      width: 450px;
+      transform: translateY(0px);
+    }
+    10%, 20% {
+      opacity: 1;
+      width: 0;
+      transform: translateY(0px);
+    }
+    52%, 100% {opacity: 0;transform:translateY(-564px);}
+  }
+
+  @keyframes revert0 {
+    0%,15% { 
+      opacity: 1; 
+      width: 450px;
+      transform: translateY(0px);
+    }
+    15%, 20% {
+      opacity: 0;
+      width: 0;
+      transform: translateY(0px);
+    }
+    72%, 100% {opacity: 0;transform:translateY(-564px);}
+  }
+
+  @keyframes topAn0 {
+    0%,3% { 
+      opacity: 0; 
+      width: 0;
+      transform: translateY(-564px);
+    }
+    3%, 10% {
+      opacity: 1;
+      width: 0;
+      transform: translateY(0px);
+    }
+    //12%, 22% {width: 10px;}
+    22%, 100% {width: 450px;}
+  } 
+
+  @keyframes topAn1 {
+    0%,10% { 
+      opacity: 0; 
+      width: 0;
+      transform: translateY(-564px);
+    }
+    10%, 20% {
+      opacity: 1;
+      width: 0;
+      transform: translateY(0px);
+    }
+    //30%, 40% {width: 5px;}
+    52%, 100% {width: 450px;}
+  }
+  
+  @keyframes topAn2 {
+    0%,10% { 
+      opacity: 0; 
+      width: 0;
+      transform: translateY(-564px);
+    }
+    10%, 20% {
+      opacity: 1;
+      width: 0;
+      transform: translateY(0px);
+    }
+    //40%, 60% {width: 5px;}
+    72%, 100% {width: 450px;}
+  }
