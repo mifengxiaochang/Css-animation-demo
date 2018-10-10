@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>strick box</title>
+  <style>
+  body,p, form{margin:0;}  
+  ol,ul{margin:0; padding:0;}
+  #header{
+    width: 1000px;
+    height: 80px;
+    background: #fff;
+    border: 1px solid #ccc;
+    margin:  0 auto 20px auto;
+  }
+  #main{
+    width: 1000px;
+    margin: 0 auto 20px auto;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 800px;
+  }
+  .content{
+    background: #fff;
+  }
+  .left{
+    width: 800px;
+    background: #ccc;
+    height: 900px;
+    margin-right: 10px;
+  }
+  .right{
+    background:#f3671c;
+    height: 300px;
+    width: 300px;
+  }
+  .button{
+    position: fixed;
+    top:50px;
+  }
+  #check:checked ~ #main .right {
+    position: sticky;
+    top: 50px;
+  }
+  #on:checked ~ main aside {
+    position: sticky;
+    top: 50px;
+  }
+  </style>
+</head>
+<body>
+  <div class="button">
+    <input id="check" type="checkbox"  onclick="check()">
+    <label for="check">是否启用粘性滑动</label>
+  </div>
+  <div id="header"></div>
+  <div id="main">
+    <div class="content left"></div>
+    <div id="right" class="right"></div>
+      
+  </div>
+  <script>
+  function check(){
+    var isCheck = document.getElementById('check').checked;
+      var dom = document.getElementById('right');
+    if(isCheck){
+      dom.setAttribute("style","position:sticky;top:50px;") ; 
+    }else{
+      dom.setAttribute("style","position:static;") ; 
+    }
+  }
+  </script>
+</body>
+</html>
